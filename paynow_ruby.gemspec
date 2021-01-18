@@ -1,0 +1,18 @@
+Gem::Specification.new do |spec|
+  spec.name                  = 'paynow_ruby'
+  spec.version               = '0.0.1'
+  spec.date                  = '2021-01-18'
+  spec.summary               = ''
+  spec.authors               = ['Piotr Wald']
+  spec.email                 = ['valdpiotr@gmail.com']
+  spec.require_paths         = ['lib']
+  spec.license               = 'MIT'
+  spec.files                 = Dir['LICENSE', 'README.md', 'lib/**/*']
+  spec.homepage              = 'https://github.com/PiotrWald/paynow_ruby'
+  spec.test_files            = spec.files.grep(/spec/)
+  spec.required_ruby_version = '> 2.2'
+
+  spec.add_runtime_dependency 'activerecord'
+
+  spec.add_development_dependency 'rspec', '~> 3.10.0'
+end
