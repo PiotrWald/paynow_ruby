@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Gem::Specification.new do |spec|
   spec.name                  = 'paynow_ruby'
   spec.version               = '0.0.1'
@@ -10,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.files                 = Dir['LICENSE', 'README.md', 'lib/**/*']
   spec.homepage              = 'https://github.com/PiotrWald/paynow_ruby'
   spec.test_files            = spec.files.grep(/spec/)
-  spec.required_ruby_version = '> 2.2'
+  spec.required_ruby_version = '> 2.4'
 
   spec.add_runtime_dependency 'activerecord'
 
