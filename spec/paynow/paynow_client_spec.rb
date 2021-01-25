@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe Paynow::PaynowClient do
-  subject(:paynow_client) { described_class.new }
-
   let(:paynow_host) { 'api.paynow.pl' }
   let(:api_key) { 'PAYNOW_API_KEY' }
   let(:api_version) { 'latest' }
@@ -13,28 +11,44 @@ RSpec.describe Paynow::PaynowClient do
 
   let(:headers) do
     {
-      'Api-Key': 'PAYNOW_API_KEY',
-      'Signature': 'signature',
+      'Api-Key': api_key,
+      'Signature': 'dEctOxi6udt1T8wVGPwl+ERf/LShBwo9nZGItNfOMhQ=',
       'Idempotency-Key': 'uniq',
-      'Api-Version': 'latest',
+      'Api-Version': api_version,
       'Accept': 'application/json',
       'Content-Type': 'application/json',
       'User-Agent': 'Ruby',
-      'Host': 'api.paynow.pl',
+      'Host': paynow_host,
       'Accept-Encoding': 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3'
     }
   end
 
   before do
-    allow(Paynow::Configuration).to receive(:host).and_return(paynow_host)
-    allow(Paynow::Configuration).to receive(:api_key).and_return(api_key)
-    allow(Paynow::Configuration).to receive(:api_version).and_return(api_version)
+    allow(Paynow::Configuration)
+      .to receive(:host)
+      .and_return(paynow_host)
+
+    allow(Paynow::Configuration)
+      .to receive(:api_key)
+      .and_return(api_key)
+
+    allow(Paynow::Configuration)
+      .to receive(:api_version)
+      .and_return(api_version)
+
+    allow(Paynow::Configuration)
+      .to receive(:camelize_proc)
+      .and_return(Paynow::CAMELIZE_PROC)
+
+    allow(Paynow::Configuration)
+      .to receive(:signature_calculator)
+      .and_return(Paynow::SignatureCalculator)
   end
 
   describe '#create_payment' do
+    before { stub_request(:any, "#{paynow_host}/payments") }
     it 'makes an HTTP request to Paynow API' do
-      stub_request(:any, "#{paynow_host}/payments")
-      paynow_client.create_payment(
+      described_class.create_payment(
         "amount": amount,
         "description": description,
         "external_id": external_id,
