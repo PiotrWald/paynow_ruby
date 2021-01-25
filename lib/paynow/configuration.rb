@@ -14,5 +14,13 @@ module Paynow
     def self.api_version
       # TODO
     end
+
+    def self.camelize_proc
+      # TODO
+    end
+
+    def self.signature_calculator
+      # TODO
+    end
   end
 end
