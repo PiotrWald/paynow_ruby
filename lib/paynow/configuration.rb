@@ -4,23 +4,39 @@ module Paynow
   # Centralized configuration for the paynow_ruby gem
   class Configuration
     def self.host
-      # TODO
+      'api.paynow.pl'
     end
 
     def self.api_key
-      # TODO
+      'PAYNOW_API_KEY'
     end
 
     def self.api_version
-      # TODO
+      'latest'
     end
 
-    def self.camelize_proc
-      # TODO
+    def self.request_builder
+      Paynow::RequestBuilder
     end
 
-    def self.signature_calculator
-      # TODO
+    def self.digest
+      Paynow::Digest
+    end
+
+    def self.api_client
+      Paynow::PaynowClient
+    end
+
+    def self.idempotency_key_builder
+      Paynow::IdempotencyKeyBuilder
+    end
+
+    def self.gateway
+      Paynow::Gateway
+    end
+
+    def self.payment
+      Paynow::Payment
     end
   end
 end

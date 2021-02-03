@@ -8,12 +8,13 @@ RSpec.describe Paynow::PaynowClient do
   let(:description) { 'Some description' }
   let(:external_id) { '234567898654' }
   let(:email) { 'aaa@bbb.pl' }
+  let(:idempotency_key) { 'f74e146-d766-45c6-88a7-da73aa02d199' }
 
   let(:headers) do
     {
       'Api-Key': api_key,
       'Signature': 'dEctOxi6udt1T8wVGPwl+ERf/LShBwo9nZGItNfOMhQ=',
-      'Idempotency-Key': 'uniq',
+      'Idempotency-Key': idempotency_key,
       'Api-Version': api_version,
       'Accept': 'application/json',
       'Content-Type': 'application/json',
@@ -24,25 +25,7 @@ RSpec.describe Paynow::PaynowClient do
   end
 
   before do
-    allow(Paynow::Configuration)
-      .to receive(:host)
-      .and_return(paynow_host)
-
-    allow(Paynow::Configuration)
-      .to receive(:api_key)
-      .and_return(api_key)
-
-    allow(Paynow::Configuration)
-      .to receive(:api_version)
-      .and_return(api_version)
-
-    allow(Paynow::Configuration)
-      .to receive(:camelize_proc)
-      .and_return(Paynow::CAMELIZE_PROC)
-
-    allow(Paynow::Configuration)
-      .to receive(:signature_calculator)
-      .and_return(Paynow::SignatureCalculator)
+    allow(SecureRandom).to receive(:uuid).and_return(idempotency_key)
   end
 
   describe '#create_payment' do

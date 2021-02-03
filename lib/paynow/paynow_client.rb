@@ -1,45 +1,45 @@
 # frozen_string_literal: true
 
+require 'net/http'
+
 module Paynow
   # Net::HTTP wraper for consuming the Paynow API
   class PaynowClient
     attr_reader :body
 
     def self.create_payment(body)
-      new(body: body).create_payment
+      new(body).create_payment
     end
 
-    def initialize(body: nil)
+    def initialize(body)
       @body = body
     end
 
     def create_payment
-      Net::HTTP.post(
-        create_payment_uri,
-        json_body,
-        headers
-      )
+      uri = URI("http://#{host}/payments")
+
+      Net::HTTP.post(uri, json_body, headers)
     end
 
     private
-
-    def create_payment_uri
-      URI("http://#{host}/payments")
-    end
-
-    def json_body
-      body.transform_keys(&camelize_proc).to_json
-    end
 
     def headers
       {
         'Api-Key': api_key,
         'Signature': signature,
-        'Idempotency-Key': 'uniq',
+        'Idempotency-Key': idempotency_key,
         'Api-Version': api_version,
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       }
+    end
+
+    def json_body
+      Paynow::Configuration.request_builder.build(body)
+    end
+
+    def idempotency_key
+      Paynow::Configuration.idempotency_key_builder.build
     end
 
     def host
@@ -55,11 +55,7 @@ module Paynow
     end
 
     def signature
-      Paynow::Configuration.signature_calculator.call(json_body)
-    end
-
-    def camelize_proc
-      Paynow::Configuration.camelize_proc
+      Paynow::Configuration.digest.hmac(json_body)
     end
   end
 end

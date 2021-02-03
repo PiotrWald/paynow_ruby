@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Paynow::SignatureCalculator do
+RSpec.describe Paynow::Digest do
   before do
     allow(Paynow::Configuration)
       .to receive(:api_key)
@@ -11,7 +11,7 @@ RSpec.describe Paynow::SignatureCalculator do
     let(:data_to_hash) { 'sample_request_content' }
 
     it 'calculates the signature' do
-      signature = described_class.call(data_to_hash)
+      signature = described_class.hmac(data_to_hash)
       expect(signature).to eql('LSajZ+A7nXbkhDvp+2YtBV/dVz8xnBZt7W/I0jew7i4=')
     end
   end
@@ -20,7 +20,7 @@ RSpec.describe Paynow::SignatureCalculator do
     let(:data_to_hash) { nil }
 
     it 'return nil' do
-      signature = described_class.call(data_to_hash)
+      signature = described_class.hmac(data_to_hash)
       expect(signature).to be_nil
     end
   end
@@ -29,7 +29,7 @@ RSpec.describe Paynow::SignatureCalculator do
     let(:data_to_hash) { '' }
 
     it 'calcaultes the signature' do
-      signature = described_class.call(data_to_hash)
+      signature = described_class.hmac(data_to_hash)
       expect(signature).to eql('Yz7P6XKfaCfSp9JtXvIIinf5G2m6fIt3FWlXHMGbuP8=')
     end
   end
