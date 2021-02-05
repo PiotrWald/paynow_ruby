@@ -4,6 +4,7 @@ require 'json'
 require 'base64'
 
 module Paynow
+  #  JSON body builder
   class RequestBuilder
     attr_reader :body
 

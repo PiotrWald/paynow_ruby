@@ -20,7 +20,7 @@ RSpec.describe Paynow::PaynowClient do
       'Content-Type': 'application/json',
       'User-Agent': 'Ruby',
       'Host': paynow_host,
-      'Accept-Encoding': 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3'
+      'Accept-Encoding': 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
     }
   end
 
@@ -37,7 +37,7 @@ RSpec.describe Paynow::PaynowClient do
         "external_id": external_id,
         "buyer": {
           "email": email,
-          "phone": {}
+          "phone": {},
         }
       )
 
@@ -47,8 +47,8 @@ RSpec.describe Paynow::PaynowClient do
         "externalId": external_id,
         "buyer": {
           "email": email,
-          "phone": {}
-        }
+          "phone": {},
+        },
       }
 
       expect(WebMock)

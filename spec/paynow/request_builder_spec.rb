@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Paynow::RequestBuilder do
   let(:amount) { 45_671 }
   let(:description) { 'Some description' }

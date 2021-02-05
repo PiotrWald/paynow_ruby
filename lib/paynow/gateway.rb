@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module Paynow
+  # Resonsible for building a payment from request and response
   class Gateway
     attr_reader :params
 
@@ -16,18 +19,20 @@ module Paynow
       parsed_response_body = JSON.parse(response.body)
 
       payment.new(
-        response: response,
-        amount: params[:amount],
-        external_id: params[:external_id],
-        description: params[:description],
-        buyer: params[:buyer],
-        payment_id: parsed_response_body['paymentId'],
-        status: parsed_response_body['status'],
-        redirect_url: parsed_response_body['redirectUrl'],
+        request_attributes.merge(
+          response: response,
+          payment_id: parsed_response_body['paymentId'],
+          status: parsed_response_body['status'],
+          redirect_url: parsed_response_body['redirectUrl']
+        )
       )
     end
 
     private
+
+    def request_attributes
+      params.slice(:amount, :external_id, :description, :buyer)
+    end
 
     def api_client
       Paynow::Configuration.api_client

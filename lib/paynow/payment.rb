@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Paynow
+  # Value object with information about the payment
   class Payment
     attr_reader :amount,
                 :description,

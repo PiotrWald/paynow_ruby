@@ -35,7 +35,7 @@ RSpec.describe Paynow::Payment do
     end
 
     it 'makes a HTTP call to Paynow API' do
-      payment = described_class.create(payment_params)
+      described_class.create(payment_params)
 
       expect(a_request(:post, "#{paynow_host}/payments")).to have_been_made.once
     end

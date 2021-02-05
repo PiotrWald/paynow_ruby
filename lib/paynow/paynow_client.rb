@@ -30,7 +30,7 @@ module Paynow
         'Idempotency-Key': idempotency_key,
         'Api-Version': api_version,
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       }
     end
 
