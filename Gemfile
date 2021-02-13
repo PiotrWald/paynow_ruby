@@ -9,3 +9,4 @@ gem 'rspec', '~> 3.10'
 gem 'rubocop', '~> 1.8', '>= 1.8.1'
 gem 'simplecov', require: false, group: :test
 gem 'webmock', '~> 2.1'
+gem 'rails'

@@ -3,8 +3,9 @@
 module Paynow
   # Value object with information about the payment
   class Payment
+    module PaymentStatus
+    end
     attr_reader :amount,
-                :description,
                 :buyer,
                 :payment_id,
                 :status,

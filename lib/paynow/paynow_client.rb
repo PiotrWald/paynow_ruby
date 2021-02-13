@@ -16,7 +16,7 @@ module Paynow
     end
 
     def create_payment
-      uri = URI("http://#{host}/payments")
+      uri = URI("https://#{host}/v1/payments")
 
       Net::HTTP.post(uri, json_body, headers)
     end

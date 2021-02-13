@@ -26,7 +26,7 @@ module Paynow
     private
 
     def key
-      Paynow::Configuration.api_key
+      Paynow::Configuration.signature_key
     end
   end
 end
