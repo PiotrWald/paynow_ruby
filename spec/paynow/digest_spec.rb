@@ -3,7 +3,7 @@
 RSpec.describe Paynow::Digest do
   before do
     allow(Paynow::Configuration)
-      .to receive(:api_key)
+      .to receive(:signature_key)
       .and_return('s3ecret-k3y')
   end
 

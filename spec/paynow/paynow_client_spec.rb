@@ -13,7 +13,7 @@ RSpec.describe Paynow::PaynowClient do
   let(:headers) do
     {
       'Api-Key': api_key,
-      'Signature': 'dEctOxi6udt1T8wVGPwl+ERf/LShBwo9nZGItNfOMhQ=',
+      'Signature': '89VBGhLXAXKxC9ke8d1eqsrpulTjs90YDZyFq+rw3KU=',
       'Idempotency-Key': idempotency_key,
       'Api-Version': api_version,
       'Accept': 'application/json',
@@ -26,10 +26,15 @@ RSpec.describe Paynow::PaynowClient do
 
   before do
     allow(SecureRandom).to receive(:uuid).and_return(idempotency_key)
+
+    allow(Paynow::Configuration)
+      .to receive(:signature_key)
+      .and_return('s3ecret-k3y')
   end
 
   describe '#create_payment' do
-    before { stub_request(:any, "#{paynow_host}/payments") }
+    before { stub_request(:post, "https://api.paynow.pl/v1/payments") }
+
     it 'makes an HTTP request to Paynow API' do
       described_class.create_payment(
         "amount": amount,
@@ -52,7 +57,7 @@ RSpec.describe Paynow::PaynowClient do
       }
 
       expect(WebMock)
-        .to have_requested(:post, "#{paynow_host}/payments")
+        .to have_requested(:post, "https://#{paynow_host}/v1/payments")
         .with(body: body.to_json, headers: headers)
     end
   end

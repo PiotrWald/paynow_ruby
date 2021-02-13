@@ -23,7 +23,7 @@ RSpec.describe Paynow::Payment do
     let(:paynow_host) { 'api.paynow.pl' }
 
     before do
-      stub_request(:post, "#{paynow_host}/payments")
+      stub_request(:post, "https://#{paynow_host}/v1/payments")
         .with(body: /10.*test@example.com/)
         .to_return(status: 201, body: create_payment_response)
     end
@@ -37,7 +37,7 @@ RSpec.describe Paynow::Payment do
     it 'makes a HTTP call to Paynow API' do
       described_class.create(payment_params)
 
-      expect(a_request(:post, "#{paynow_host}/payments")).to have_been_made.once
+      expect(a_request(:post, "https://#{paynow_host}/v1/payments")).to have_been_made.once
     end
 
     it 'returns a payment with populated response' do

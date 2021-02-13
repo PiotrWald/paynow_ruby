@@ -6,6 +6,7 @@ module Paynow
     @host = 'api.paynow.pl'
     @api_key = 'PAYNOW_API_KEY'
     @api_version = 'latest'
+    @signature_key = 's3ecret-k3y'
 
     def self.configure
       yield self

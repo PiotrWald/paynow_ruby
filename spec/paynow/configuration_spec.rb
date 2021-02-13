@@ -26,6 +26,15 @@ RSpec.describe Paynow::Configuration do
         end
       end
 
+      after do
+        described_class.configure do |config|
+          config.host = 'api.paynow.pl'
+          config.api_key = 'PAYNOW_API_KEY'
+          config.api_version = 'latest'
+          config.signature_key = 's3ecret-k3y'
+        end
+      end
+
       it 'returns updated host value' do
         expect(described_class.host).to eql('updated_host')
       end
