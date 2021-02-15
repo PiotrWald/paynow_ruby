@@ -26,5 +26,9 @@ module Paynow
       @redirect_url = attributes[:redirect_url]
       @external_id = attributes[:external_id]
     end
+
+    def created?
+      response.code == '201' && status == 'NEW'
+    end
   end
 end

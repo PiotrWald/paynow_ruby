@@ -33,7 +33,7 @@ RSpec.describe Paynow::PaynowClient do
   end
 
   describe '#create_payment' do
-    before { stub_request(:post, "https://api.paynow.pl/v1/payments") }
+    before { stub_request(:post, 'https://api.paynow.pl/v1/payments') }
 
     it 'makes an HTTP request to Paynow API' do
       described_class.create_payment(

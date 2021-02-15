@@ -3,17 +3,12 @@
 module Paynow
   # Centralized configuration for the paynow_ruby gem
   class Configuration
-    @host = 'api.paynow.pl'
-    @api_key = 'PAYNOW_API_KEY'
-    @api_version = 'latest'
-    @signature_key = 's3ecret-k3y'
-
     def self.configure
       yield self
     end
 
     class << self
-      attr_accessor :host, :api_key, :api_version, :signature_key
+      attr_accessor :host, :api_key, :api_version, :signature_key, :user_agent
     end
 
     def self.request_builder

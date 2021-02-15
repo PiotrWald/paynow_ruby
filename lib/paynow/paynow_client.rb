@@ -31,6 +31,7 @@ module Paynow
         'Api-Version': api_version,
         'Accept': 'application/json',
         'Content-Type': 'application/json',
+        'User-Agent': user_agent,
       }
     end
 
@@ -56,6 +57,10 @@ module Paynow
 
     def signature
       Paynow::Configuration.digest.hmac(json_body)
+    end
+
+    def user_agent
+      Paynow::Configuration.user_agent
     end
   end
 end

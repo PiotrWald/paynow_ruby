@@ -25,6 +25,15 @@ RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
+  config.before(:all) do
+    Paynow::Configuration.configure do |paynow_config|
+      paynow_config.host = 'api.paynow.pl'
+      paynow_config.api_key = 'PAYNOW_API_KEY'
+      paynow_config.api_version = 'latest'
+      paynow_config.signature_key = 's3ecret-k3y'
+    end
+  end
+
   config.expect_with :rspec do |expectations|
     # This option will default to `true` in RSpec 4. It makes the `description`
     # and `failure_message` of custom matchers include text for helper methods
