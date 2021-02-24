@@ -18,7 +18,17 @@ module Paynow
     def create_payment
       uri = URI("https://#{host}/v1/payments")
 
-      Net::HTTP.post(uri, json_body, headers)
+      logger.info("[PAYNOW] STARTED GET #{uri}")
+
+      response = Net::HTTP.post(uri, json_body, headers)
+
+      if response.code =~ /^[4-5]/
+        logger.error("[PAYNOW] ERROR GET #{uri} status=#{response.code} #{JSON.parse(response.body)['errors']}")
+      else
+        logger.info("[PAYNOW] FINISHED GET #{uri} status=#{response.code}")
+      end
+
+      response
     end
 
     private
@@ -61,6 +71,10 @@ module Paynow
 
     def user_agent
       Paynow::Configuration.user_agent
+    end
+
+    def logger
+      Paynow::Configuration.logger
     end
   end
 end

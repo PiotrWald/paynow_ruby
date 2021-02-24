@@ -1,0 +1,9 @@
+{
+  "statusCode": 503,
+  "errors": [
+    {
+      "errorType": "SYSTEM_TEMPORARILY_UNAVAILABLE",
+      "message": "Service is temporarily unavailable"
+    }
+  ]
+}

@@ -9,6 +9,7 @@ RSpec.describe Paynow::PaynowClient do
   let(:external_id) { '234567898654' }
   let(:email) { 'aaa@bbb.pl' }
   let(:idempotency_key) { 'f74e146-d766-45c6-88a7-da73aa02d199' }
+  let(:service_unavailable_response) { json_fixture(:service_unavailable_response) }
 
   let(:headers) do
     {
@@ -59,6 +60,27 @@ RSpec.describe Paynow::PaynowClient do
       expect(WebMock)
         .to have_requested(:post, "https://#{paynow_host}/v1/payments")
         .with(body: body.to_json, headers: headers)
+    end
+
+    describe 'error handling' do
+      before do
+        stub_request(:post, 'https://api.paynow.pl/v1/payments')
+          .to_return(status: 503, body: service_unavailable_response)
+      end
+
+      it 'handles Paynow service unavailable' do
+        expect(
+          described_class.create_payment(
+            "amount": amount,
+            "description": description,
+            "external_id": external_id,
+            "buyer": {
+              "email": email,
+              "phone": {},
+            }
+          )
+        ).to be_a(Net::HTTPServiceUnavailable)
+      end
     end
   end
 end

@@ -1,14 +1,18 @@
 # frozen_string_literal: true
 
+require 'logger'
+
 module Paynow
   # Centralized configuration for the paynow_ruby gem
   class Configuration
+    @default_logger = Logger.new(STDOUT)
+
     def self.configure
       yield self
     end
 
     class << self
-      attr_accessor :host, :api_key, :api_version, :signature_key, :user_agent
+      attr_accessor :host, :api_key, :api_version, :signature_key, :user_agent, :logger
     end
 
     def self.request_builder
@@ -33,6 +37,10 @@ module Paynow
 
     def self.payment
       Paynow::Payment
+    end
+
+    def self.logger
+      @logger || @default_logger
     end
   end
 end

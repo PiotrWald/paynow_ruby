@@ -10,10 +10,12 @@ module Paynow
     end
 
     def initialize(params)
-      @params = params
+      @params = params.transform_keys(&:to_sym)
     end
 
     def create_payment
+      logger.info("[PAYNOW] CREATE PAYMENT external_id=#{params[:external_id]}")
+
       response = api_client.create_payment(params)
 
       parsed_response_body = JSON.parse(response.body)
@@ -40,6 +42,10 @@ module Paynow
 
     def payment
       Paynow::Configuration.payment
+    end
+
+    def logger
+      Paynow::Configuration.logger
     end
   end
 end
