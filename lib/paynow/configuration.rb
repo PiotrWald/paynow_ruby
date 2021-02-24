@@ -5,14 +5,14 @@ require 'logger'
 module Paynow
   # Centralized configuration for the paynow_ruby gem
   class Configuration
-    @default_logger = Logger.new(STDOUT)
+    @default_logger = Logger.new($stdout)
 
     def self.configure
       yield self
     end
 
     class << self
-      attr_accessor :host, :api_key, :api_version, :signature_key, :user_agent, :logger
+      attr_accessor :host, :api_key, :api_version, :signature_key, :user_agent
     end
 
     def self.request_builder

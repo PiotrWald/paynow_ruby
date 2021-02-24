@@ -16,8 +16,6 @@ module Paynow
     end
 
     def create_payment
-      uri = URI("https://#{host}/v1/payments")
-
       logger.info("[PAYNOW] STARTED GET #{uri}")
 
       response = Net::HTTP.post(uri, json_body, headers)
@@ -32,6 +30,10 @@ module Paynow
     end
 
     private
+
+    def uri
+      URI("https://#{host}/v1/payments")
+    end
 
     def headers
       {

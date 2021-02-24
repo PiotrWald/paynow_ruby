@@ -16,6 +16,14 @@ Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
 
+Metrics/MethodLength:
+  Exclude:
+    - 'lib/paynow/gateway.rb'
+
+Metrics/AbcSize:
+  Exclude:
+    - 'lib/paynow/paynow_client.rb'
+
 Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: comma
 
