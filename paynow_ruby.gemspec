@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |spec|
   spec.name                  = 'paynow_ruby'
-  spec.version               = '0.1.0'
+  spec.version               = '0.1.1'
   spec.date                  = '2021-02-15'
   spec.summary               = ''
   spec.authors               = ['Piotr Wald']

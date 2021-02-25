@@ -13,6 +13,7 @@ module Paynow
 
     class << self
       attr_accessor :host, :api_key, :api_version, :signature_key, :user_agent
+      attr_writer :logger
     end
 
     def self.request_builder
