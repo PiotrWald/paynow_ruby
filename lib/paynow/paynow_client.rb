@@ -3,7 +3,7 @@
 require 'net/http'
 
 module Paynow
-  # Net::HTTP wraper for consuming the Paynow API
+  # Net::HTTP wrapper for consuming the Paynow API
   class PaynowClient
     attr_reader :body
 

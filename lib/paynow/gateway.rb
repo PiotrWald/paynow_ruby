@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Paynow
-  # Resonsible for building a payment from request and response
+  # Responsible for building a payment from request and response
   class Gateway
     attr_reader :params
 
